@@ -11,9 +11,32 @@ import XCTest
 class ExtendedCalcTests :XCTestCase {
     let calc = Calculator()
     
-    //func testNegativeOps() {
-    //    XCTAssert(calc.calculate(["2", "+", "-12"]) == -10)
-    //}
+    func testNegativeOps() {
+        XCTAssert(calc.calculate(["2", "+", "-12"]) == -10)
+        XCTAssert(calc.calculate(["2", "-", "-2"]) == 4)
+        XCTAssert(calc.calculate(["-2", "-", "2"]) == -4)
+        XCTAssert(calc.calculate(["-20", "*", "2"]) == -40)
+        XCTAssert(calc.calculate(["2", "/", "-1"]) == -2)
+    }
+    
+    func testNegativeAvgOps() {
+        XCTAssert(calc.calculate(["1", "2", "3", "4", "-5", "avg"]) == 1) // 5 / 5 = 1
+        XCTAssert(calc.calculate(["-2", "2", "-4", "4", "avg"]) == 0) // 0 / 4 = 0
+        XCTAssert(calc.calculate(["-2", "2", "4", "4", "avg"]) == 2) // 8 / 4 = 2
+        XCTAssert(calc.calculate(["-2", "avg"]) == -2) // -2 / 1 = -2
+    }
+    
+    func testNegativeFactOps() {
+        XCTAssert(calc.calculate(["-10", "fact"]) == -1) // Fact is only defined for >= 0
+    }
+    
+    func testSingleStringSimpleOps() {
+        XCTAssert(calc.calculate("-2 + 2") == 0)
+        XCTAssert(calc.calculate("2 * -20") == -40)
+        XCTAssert(calc.calculate("2 - -2") == 4)
+        XCTAssert(calc.calculate("2 / -2") == -1)
+    }
+    
 }
 
 class SimpleCalcTests: XCTestCase {
